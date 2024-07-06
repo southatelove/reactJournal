@@ -20,7 +20,7 @@ const INITIAL_STATE = [
 function App() {
   const [items, setItems] = useState(INITIAL_STATE);
 
-  const addItem = (item) => {
+  const onSubmit = (item) => {
     setItems((prev) => [
       ...prev,
       {
@@ -46,7 +46,7 @@ function App() {
         <JournalList items={items}></JournalList>
       </LeftPanel>
       <Body>
-        <JournalForm onSubmit={addItem} />
+        <JournalForm onSubmit={onSubmit} />
       </Body>
     </div>
   );
