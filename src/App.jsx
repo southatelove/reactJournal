@@ -6,29 +6,37 @@ import Header from "./components/Header/Header";
 import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalList from "./components/JournalList/JournalList";
 import JournalForm from "./components/JournalForm/JournalForm";
-import { useState } from "react";
-
-const INITIAL_STATE = [
-  // {
-  //   id: 1,
-  //   title: "first title",
-  //   text: "first text",
-  //   date: new Date(),
-  // },
-];
+import { useState, useEffect } from "react";
 
 function App() {
-  const [items, setItems] = useState(INITIAL_STATE);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("data"));
+    if (data) {
+      setItems(
+        data.map((item) => ({
+          ...item,
+          date: new Date(item.date),
+        }))
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (items.length) {
+      localStorage.setItem("data", JSON.stringify(items));
+    }
+  }, [items]);
 
   const onSubmit = (item) => {
     setItems((prev) => [
       ...prev,
       {
-        text: item.text,
+        post: item.post,
         title: item.title,
         date: new Date(item.date),
-        id:
-          prev.length > 0 ? Math.max(...(prev.map((item) => item.id) + 1)) : 1,
+        id: prev.length > 0 ? Math.max(...prev.map((item) => item.id + 1)) : 1,
       },
     ]);
   };
