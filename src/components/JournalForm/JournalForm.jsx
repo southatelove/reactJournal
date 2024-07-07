@@ -1,6 +1,6 @@
 import styles from "./JournalForm.module.css";
 import { useState } from "react";
-
+import cn from "classnames";
 import Button from "../Button/Button";
 
 export default function JournalForm({ onSubmit }) {
@@ -9,7 +9,6 @@ export default function JournalForm({ onSubmit }) {
     post: true,
     date: true,
   });
-  console.log(formValidState);
 
   const addJournalItem = (e) => {
     e.preventDefault();
@@ -50,9 +49,12 @@ export default function JournalForm({ onSubmit }) {
       <input
         type="title"
         name="title"
-        className={`${styles["input"]} ${
-          formValidState.title ? "" : styles["invalid"]
-        }`}
+        // className={`${styles["input"]} ${
+        //   formValidState.title ? "" : styles["invalid"]
+        // }`}
+        className={cn(styles["input"], {
+          [styles["invalid"]]: !formValidState.title,
+        })}
       />
       <input
         type="date"

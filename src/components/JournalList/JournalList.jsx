@@ -7,7 +7,7 @@ export default function JournalList({ items }) {
     return <p>Записей нет, добавьте первую</p>;
   }
   const sortItems = (a, b) => {
-    return a < b ? 1 : -1;
+    return a.date < b.date ? 1 : -1;
   };
 
   return (
