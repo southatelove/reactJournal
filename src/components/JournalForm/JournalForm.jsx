@@ -34,15 +34,20 @@ export default function JournalForm({ onSubmit }) {
   useEffect(() => {
     if (isFormReadyToSubmit) {
       onSubmit(values);
+      dispatchForm({ type: "RESET_FIELDS" });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFormReadyToSubmit]);
+  }, [isFormReadyToSubmit, onSubmit, values]);
+
   const addJournalItem = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const formProps = Object.fromEntries(formData);
+    dispatchForm({ type: "SUBMIT" });
+  };
 
-    dispatchForm({ type: "SUBMIT", payload: formProps });
+  const onChange = (e) => {
+    dispatchForm({
+      type: "SET_VALUE",
+      payload: { [e.target.name]: e.target.value },
+    });
   };
 
   return (
@@ -54,6 +59,8 @@ export default function JournalForm({ onSubmit }) {
           className={cn(styles["input-title"], {
             [styles["invalid"]]: !isValid.title,
           })}
+          value={values.title}
+          onChange={onChange}
         />
       </div>
       <div className={styles["form-row"]}>
@@ -68,6 +75,8 @@ export default function JournalForm({ onSubmit }) {
           className={cn(styles["input"], {
             [styles["invalid"]]: !isValid.date,
           })}
+          value={values.date}
+          onChange={onChange}
         />
       </div>
       <div className={styles["form-row"]}>
@@ -75,9 +84,15 @@ export default function JournalForm({ onSubmit }) {
           <img src="./folder.svg" alt="Иконка папки"></img>
           <span>Метки</span>
         </label>
-        <input type="text" name="tag" id="tag" className={styles["input"]} />
+        <input
+          type="text"
+          name="tag"
+          id="tag"
+          className={styles["input"]}
+          value={values.tag}
+          onChange={onChange}
+        />
       </div>
-
       <textarea
         name="post"
         id=""
@@ -86,6 +101,8 @@ export default function JournalForm({ onSubmit }) {
         className={cn(styles["input"], {
           [styles["invalid"]]: !isValid.post,
         })}
+        value={values.post}
+        onChange={onChange}
       ></textarea>
       <Button text={"Сохранить"} />
     </form>
