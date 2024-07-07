@@ -1,7 +1,7 @@
 import styles from "./JournalForm.module.css";
-import { useEffect, useReducer } from "react";
 import cn from "classnames";
 import Button from "../Button/Button";
+import { useEffect, useReducer, useRef } from "react";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 
 // const INITIAL_STATE = {
@@ -14,15 +14,32 @@ export default function JournalForm({ onSubmit }) {
   // const [formValidState, setFormValidState] = useState(INITIAL_STATE);
 
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
-
   const { isValid, isFormReadyToSubmit, values } = formState;
+  const titleRef = useRef();
+  const dateRef = useRef();
+  const postRef = useRef();
+
+  const focusError = (isValid) => {
+    switch (true) {
+      case !isValid.title:
+        titleRef.current.focus();
+        break;
+      case !isValid.date:
+        dateRef.current.focus();
+        break;
+      case !isValid.post:
+        postRef.current.focus();
+        break;
+    }
+  };
 
   useEffect(() => {
     let timerId;
     if (!isValid.date || !isValid.post || !isValid.title) {
+      console.log(isValid, "isValid");
+      focusError(isValid);
       timerId = setTimeout(() => {
         dispatchForm({ type: "RESET_VALIDITY" });
-        console.log("очистка");
       }, 2000);
     }
 
@@ -54,7 +71,8 @@ export default function JournalForm({ onSubmit }) {
     <form className={`${styles["journal-form"]}`} onSubmit={addJournalItem}>
       <div>
         <input
-          type="title"
+          ref={titleRef}
+          type="text"
           name="title"
           className={cn(styles["input-title"], {
             [styles["invalid"]]: !isValid.title,
@@ -69,6 +87,7 @@ export default function JournalForm({ onSubmit }) {
           <span>Дата</span>
         </label>
         <input
+          ref={dateRef}
           type="date"
           name="date"
           id="date"
@@ -94,8 +113,9 @@ export default function JournalForm({ onSubmit }) {
         />
       </div>
       <textarea
-        name="post"
+        ref={postRef}
         id=""
+        name="post"
         cols="30"
         rows="10"
         className={cn(styles["input"], {
