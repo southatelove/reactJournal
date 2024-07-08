@@ -6,37 +6,61 @@ import Header from "./components/Header/Header";
 import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalList from "./components/JournalList/JournalList";
 import JournalForm from "./components/JournalForm/JournalForm";
-import { useState, useEffect } from "react";
+import { useLocalStorage } from "./hooks/useLocalStorage/use-localstorage.hook";
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useLocalStorage("data");
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("data"));
-    if (data) {
-      setItems(
-        data.map((item) => ({
-          ...item,
-          date: new Date(item.date),
-        }))
-      );
-    }
-  }, []);
+  // useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem("data"));
+  //   if (data) {
+  //     setItems(
+  //       data.map((item) => ({
+  //         ...item,
+  //         date: new Date(item.date),
+  //       }))
+  //     );
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (items.length) {
-      localStorage.setItem("data", JSON.stringify(items));
+  // useEffect(() => {
+  //   if (items.length) {
+  //     localStorage.setItem("data", JSON.stringify(items));
+  //   }
+  // }, [items]);
+
+  // const onSubmit = (item) => {
+  //   setItems((prev) => [
+  //     ...prev,
+  //     {
+  //       post: item.post,
+  //       title: item.title,
+  //       date: new Date(item.date),
+  //       id: prev.length > 0 ? Math.max(...prev.map((item) => item.id + 1)) : 1,
+  //     },
+  //   ]);
+  // };
+
+  function mapItems(items) {
+    if (items) {
+      return items.map((i) => ({
+        ...i,
+        date: new Date(i.date),
+      }));
+    } else {
+      return [];
     }
-  }, [items]);
+  }
 
   const onSubmit = (item) => {
-    setItems((prev) => [
-      ...prev,
+    setItems([
+      ...mapItems(items),
       {
         post: item.post,
         title: item.title,
         date: new Date(item.date),
-        id: prev.length > 0 ? Math.max(...prev.map((item) => item.id + 1)) : 1,
+        id:
+          items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1,
       },
     ]);
   };
@@ -51,7 +75,7 @@ function App() {
       <LeftPanel>
         <Header />
         <JournalAddButton></JournalAddButton>
-        <JournalList items={items}></JournalList>
+        <JournalList items={mapItems(items)}></JournalList>
       </LeftPanel>
       <Body>
         <JournalForm onSubmit={onSubmit} />

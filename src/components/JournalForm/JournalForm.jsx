@@ -5,15 +5,7 @@ import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 import Input from "../Input/Input";
 import TextArea from "../TextArea/TextArea";
 
-// const INITIAL_STATE = {
-//   title: true,
-//   post: true,
-//   date: true,
-// };
-
 export default function JournalForm({ onSubmit }) {
-  // const [formValidState, setFormValidState] = useState(INITIAL_STATE);
-
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
   const titleRef = useRef();
