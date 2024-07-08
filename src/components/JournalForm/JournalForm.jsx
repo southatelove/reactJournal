@@ -1,8 +1,9 @@
 import styles from "./JournalForm.module.css";
-import cn from "classnames";
 import Button from "../Button/Button";
 import { useEffect, useReducer, useRef } from "react";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
+import Input from "../Input/Input";
+import TextArea from "../TextArea/TextArea";
 
 // const INITIAL_STATE = {
 //   title: true,
@@ -70,15 +71,14 @@ export default function JournalForm({ onSubmit }) {
   return (
     <form className={`${styles["journal-form"]}`} onSubmit={addJournalItem}>
       <div>
-        <input
+        <Input
           ref={titleRef}
           type="text"
           name="title"
-          className={cn(styles["input-title"], {
-            [styles["invalid"]]: !isValid.title,
-          })}
           value={values.title}
           onChange={onChange}
+          appereance="title"
+          isValid={isValid.title}
         />
       </div>
       <div className={styles["form-row"]}>
@@ -86,16 +86,14 @@ export default function JournalForm({ onSubmit }) {
           <img src="./date.svg" alt="Иконка календаря"></img>
           <span>Дата</span>
         </label>
-        <input
+        <Input
           ref={dateRef}
           type="date"
           name="date"
           id="date"
-          className={cn(styles["input"], {
-            [styles["invalid"]]: !isValid.date,
-          })}
           value={values.date}
           onChange={onChange}
+          isValid={isValid.date}
         />
       </div>
       <div className={styles["form-row"]}>
@@ -103,27 +101,25 @@ export default function JournalForm({ onSubmit }) {
           <img src="./folder.svg" alt="Иконка папки"></img>
           <span>Метки</span>
         </label>
-        <input
+        <Input
           type="text"
           name="tag"
           id="tag"
-          className={styles["input"]}
           value={values.tag}
           onChange={onChange}
+          isValid={isValid.tag}
         />
       </div>
-      <textarea
+      <TextArea
         ref={postRef}
         id=""
         name="post"
         cols="30"
         rows="10"
-        className={cn(styles["input"], {
-          [styles["invalid"]]: !isValid.post,
-        })}
         value={values.post}
         onChange={onChange}
-      ></textarea>
+        isValid={isValid.post}
+      />
       <Button text={"Сохранить"} />
     </form>
   );
