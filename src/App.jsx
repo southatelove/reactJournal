@@ -8,7 +8,11 @@ import JournalList from "./components/JournalList/JournalList";
 import JournalForm from "./components/JournalForm/JournalForm";
 import { useLocalStorage } from "./hooks/useLocalStorage/use-localstorage.hook";
 
+import { UserContextProvider } from "./context/userContext";
+
 function App() {
+  //[items, setItems] это [data,saveData] из кастомного хука useLocalStorage
+
   const [items, setItems] = useLocalStorage("data");
 
   // useEffect(() => {
@@ -56,8 +60,9 @@ function App() {
     setItems([
       ...mapItems(items),
       {
-        post: item.post,
-        title: item.title,
+        // post: item.post,
+        // title: item.title,
+        ...item,
         date: new Date(item.date),
         id:
           items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1,
@@ -71,16 +76,18 @@ function App() {
   // };
 
   return (
-    <div className="app">
-      <LeftPanel>
-        <Header />
-        <JournalAddButton></JournalAddButton>
-        <JournalList items={mapItems(items)}></JournalList>
-      </LeftPanel>
-      <Body>
-        <JournalForm onSubmit={onSubmit} />
-      </Body>
-    </div>
+    <UserContextProvider>
+      <div className="app">
+        <LeftPanel>
+          <Header />
+          <JournalAddButton></JournalAddButton>
+          <JournalList items={mapItems(items)}></JournalList>
+        </LeftPanel>
+        <Body>
+          <JournalForm onSubmit={onSubmit} />
+        </Body>
+      </div>
+    </UserContextProvider>
   );
 }
 

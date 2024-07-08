@@ -1,9 +1,10 @@
 import styles from "./JournalForm.module.css";
 import Button from "../Button/Button";
-import { useEffect, useReducer, useRef } from "react";
+import { useContext, useEffect, useReducer, useRef } from "react";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 import Input from "../Input/Input";
 import TextArea from "../TextArea/TextArea";
+import { UserContext } from "../../context/userContext";
 
 export default function JournalForm({ onSubmit }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
@@ -11,6 +12,8 @@ export default function JournalForm({ onSubmit }) {
   const titleRef = useRef();
   const dateRef = useRef();
   const postRef = useRef();
+
+  const { userId } = useContext(UserContext);
 
   const focusError = (isValid) => {
     switch (true) {
@@ -29,7 +32,6 @@ export default function JournalForm({ onSubmit }) {
   useEffect(() => {
     let timerId;
     if (!isValid.date || !isValid.post || !isValid.title) {
-      console.log(isValid, "isValid");
       focusError(isValid);
       timerId = setTimeout(() => {
         dispatchForm({ type: "RESET_VALIDITY" });
@@ -48,6 +50,13 @@ export default function JournalForm({ onSubmit }) {
     }
   }, [isFormReadyToSubmit, onSubmit, values]);
 
+  useEffect(() => {
+    dispatchForm({
+      type: "SET_VALUE",
+      payload: { userId: userId },
+    });
+  }, [userId]);
+
   const addJournalItem = (e) => {
     e.preventDefault();
     dispatchForm({ type: "SUBMIT" });
@@ -62,6 +71,7 @@ export default function JournalForm({ onSubmit }) {
 
   return (
     <form className={`${styles["journal-form"]}`} onSubmit={addJournalItem}>
+      {userId}
       <div>
         <Input
           ref={titleRef}
