@@ -4,9 +4,11 @@ import { createContext, useState } from "react";
 // UserContext.Provider - обертка всего
 // UserContext.Consumer - обертка (место потребления контекста)
 
-//initialContext для JournalList
+//UserContext - initialContext, если нам нужны данные в виде константы и они не будет изменяться, можно без оборота в провайдер
+//UserContextProvider - это кастомный context, который принимает в себя children
+
 export const UserContext = createContext({
-  userId: 1,
+  userId: 2,
 });
 
 export const UserContextProvider = ({ children }) => {

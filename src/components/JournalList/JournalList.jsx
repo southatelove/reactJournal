@@ -17,7 +17,7 @@ export default function JournalList({ items }) {
   return (
     <>
       {items
-        .filter((elem) => elem.userId === userId)
+        .filter((item) => item.userId === userId)
         .sort(sortItems)
         .map((item) => (
           <CardButton key={item.id}>
