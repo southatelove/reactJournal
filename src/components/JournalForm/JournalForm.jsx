@@ -122,7 +122,7 @@ export default function JournalForm({ onSubmit }) {
         onChange={onChange}
         isValid={isValid.post}
       />
-      <Button text={"Сохранить"} />
+      <Button>Сохранить</Button>
     </form>
   );
 }

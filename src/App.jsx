@@ -80,7 +80,7 @@ function App() {
       <div className="app">
         <LeftPanel>
           <Header />
-          <JournalAddButton></JournalAddButton>
+          <JournalAddButton />
           <JournalList items={mapItems(items)} />
         </LeftPanel>
         <Body>
