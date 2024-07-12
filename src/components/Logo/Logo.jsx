@@ -1,10 +1,10 @@
 import styles from "./Logo.module.css";
 import { memo } from "react";
 
-export const Logo = memo(function Logo({ image }) {
+export const Logo = memo(function Logo({ text }) {
   return (
     <>
-      <img className={styles.logo} src={image} alt="logo" />
+      <p className={styles.logo}> {text}</p>
     </>
   );
 });

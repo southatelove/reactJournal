@@ -1,11 +1,10 @@
 import SelectUser from "../SelectUser/SelectUser";
 import { Logo } from "../Logo/Logo";
-const logos = ["/logo.svg", "/vite.svg"];
 
 export default function Header() {
   return (
     <>
-      <Logo image={logos[0]} />
+      <Logo text="𝒮𝑜𝓊𝓉𝒽𝒶𝓉𝑒𝓁𝑜𝓋𝑒 𝒥𝑜𝓊𝓇𝓃𝒶𝓁" />
       <SelectUser />
     </>
   );
