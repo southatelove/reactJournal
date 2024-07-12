@@ -9,11 +9,13 @@ import JournalForm from "./components/JournalForm/JournalForm";
 import { useLocalStorage } from "./hooks/useLocalStorage/use-localstorage.hook";
 
 import { UserContextProvider } from "./context/userContext";
+import { useState } from "react";
 
 function App() {
   //[items, setItems] это [data,saveData] из кастомного хука useLocalStorage
 
   const [items, setItems] = useLocalStorage("data");
+  const [selectedItem, setSelectedItem] = useState({});
 
   // useEffect(() => {
   //   const data = JSON.parse(localStorage.getItem("data"));
@@ -57,17 +59,32 @@ function App() {
   }
 
   const onSubmit = (item) => {
-    setItems([
-      ...mapItems(items),
-      {
-        // post: item.post,
-        // title: item.title,
-        ...item,
-        date: new Date(item.date),
-        id:
-          items?.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1,
-      },
-    ]);
+    if (!item.id) {
+      setItems([
+        ...mapItems(items),
+        {
+          // post: item.post,
+          // title: item.title,
+          ...item,
+          date: new Date(item.date),
+          id:
+            items?.length > 0
+              ? Math.max(...items.map((item) => item.id)) + 1
+              : 1,
+        },
+      ]);
+    } else {
+      setItems([
+        ...mapItems(items).map((i) => {
+          if (i.id === item.id) {
+            return {
+              ...item,
+            };
+          }
+          return i;
+        }),
+      ]);
+    }
   };
 
   //из-за форматирования date не подойдет
@@ -81,10 +98,13 @@ function App() {
         <LeftPanel>
           <Header />
           <JournalAddButton />
-          <JournalList items={mapItems(items)} />
+          <JournalList
+            items={mapItems(items)}
+            setSelectedItem={setSelectedItem}
+          />
         </LeftPanel>
         <Body>
-          <JournalForm onSubmit={onSubmit} />
+          <JournalForm onSubmit={onSubmit} selectedItem={selectedItem} />
         </Body>
       </div>
     </UserContextProvider>

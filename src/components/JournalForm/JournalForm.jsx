@@ -1,12 +1,12 @@
 import styles from "./JournalForm.module.css";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import { useContext, useEffect, useReducer, useRef } from "react";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 import Input from "../Input/Input";
 import TextArea from "../TextArea/TextArea";
 import { UserContext } from "../../context/userContext";
 
-export default function JournalForm({ onSubmit }) {
+export default function JournalForm({ onSubmit, selectedItem }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
   const titleRef = useRef();
@@ -30,6 +30,10 @@ export default function JournalForm({ onSubmit }) {
   };
 
   useEffect(() => {
+    dispatchForm({ type: "SET_VALUE", payload: { ...selectedItem } });
+  }, [selectedItem]);
+
+  useEffect(() => {
     let timerId;
     if (!isValid.date || !isValid.post || !isValid.title) {
       focusError(isValid);
@@ -47,8 +51,9 @@ export default function JournalForm({ onSubmit }) {
     if (isFormReadyToSubmit) {
       onSubmit(values);
       dispatchForm({ type: "RESET_FIELDS" });
+      dispatchForm({ type: "SET_VALUE", payload: { userId } });
     }
-  }, [isFormReadyToSubmit, onSubmit, values]);
+  }, [isFormReadyToSubmit, onSubmit, values, userId]);
 
   useEffect(() => {
     dispatchForm({
@@ -85,7 +90,7 @@ export default function JournalForm({ onSubmit }) {
       </div>
       <div className={styles["form-row"]}>
         <label htmlFor="date" className={styles["form-label"]}>
-          <img src="./date.svg" alt="Иконка календаря"></img>
+          <img src="./date.svg" alt="Иконка календаря" />
           <span>Дата</span>
         </label>
         <Input
@@ -93,7 +98,10 @@ export default function JournalForm({ onSubmit }) {
           type="date"
           name="date"
           id="date"
-          value={values.date}
+          // value={values.date ? values.date : ""}
+          value={
+            values.date ? new Date(values.date).toISOString().slice(0, 10) : ""
+          }
           onChange={onChange}
           isValid={isValid.date}
         />

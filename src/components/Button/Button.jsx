@@ -1,6 +1,7 @@
 import "./Button.css";
+import { memo } from "react";
 
-export default function Button({ children, onClick }) {
+export const Button = memo(function Button({ children, onClick }) {
   return (
     <>
       <button className="button accent" onClick={onClick}>
@@ -8,4 +9,4 @@ export default function Button({ children, onClick }) {
       </button>
     </>
   );
-}
+});
