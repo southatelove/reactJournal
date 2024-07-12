@@ -1,8 +1,22 @@
-# React + Vite
+# React Journal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Панель для возможности записи и чтения Todos с возможностью смены пользователей, редактирования и удаления.
+Посмотреть работоспособность приложения можно **[здесь](https://react-journal-weld.vercel.app/)**.
 
-Currently, two official plugins are available:
+## Стек:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Javacript**
+- **React**
+- **React-Hooks (useState, useEffect, useContext, memo, useMemo, useCallback, useReducer, useLocalStorage)**
+- **ModuleCSS && CSS && ClassNames**
+- **Figma**
+
+## To view the project
+
+Для старта проекта используйте следующие команды: git clone, npm i , npm run dev
+
+## запланированные доработки
+
+- Добавление адаптивной верстки
+- Добавление Typescript
+- Рефакторинг стилей и удаление ненужного
