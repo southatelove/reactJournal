@@ -1,0 +1,9 @@
+option {
+  background: black;
+}
+.select {
+  padding: 10px;
+  background: none;
+  border: 1px solid #323232;
+  color: white;
+}

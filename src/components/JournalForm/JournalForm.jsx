@@ -6,7 +6,7 @@ import Input from "../Input/Input";
 import TextArea from "../TextArea/TextArea";
 import { UserContext } from "../../context/userContext";
 
-export default function JournalForm({ onSubmit, selectedItem }) {
+export default function JournalForm({ onSubmit, onDelete, selectedItem }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
   const titleRef = useRef();
@@ -30,6 +30,11 @@ export default function JournalForm({ onSubmit, selectedItem }) {
   };
 
   useEffect(() => {
+    if (!selectedItem) {
+      dispatchForm({ type: "RESET_FIELDS" });
+      dispatchForm({ type: "SET_VALUE", payload: { userId: userId } });
+    }
+
     dispatchForm({ type: "SET_VALUE", payload: { ...selectedItem } });
   }, [selectedItem]);
 
@@ -74,10 +79,15 @@ export default function JournalForm({ onSubmit, selectedItem }) {
     });
   };
 
+  const deleteJournalItem = (id) => {
+    onDelete(id);
+    dispatchForm({ type: "RESET_FIELDS" });
+    dispatchForm({ type: "SET_VALUE", payload: { userId: userId } });
+  };
+
   return (
     <form className={`${styles["journal-form"]}`} onSubmit={addJournalItem}>
-      {userId}
-      <div>
+      <div className={styles["form-row"]}>
         <Input
           ref={titleRef}
           type="text"
@@ -87,6 +97,14 @@ export default function JournalForm({ onSubmit, selectedItem }) {
           appereance="title"
           isValid={isValid.title}
         />
+        {selectedItem?.id && (
+          <img
+            className={styles.delete}
+            src="./remove.svg"
+            alt="кнопка удалить"
+            onClick={() => deleteJournalItem(selectedItem.id)}
+          />
+        )}
       </div>
       <div className={styles["form-row"]}>
         <label htmlFor="date" className={styles["form-label"]}>

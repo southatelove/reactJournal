@@ -17,7 +17,7 @@ export const INITIAL_STATE = {
 export function formReducer(state, action){
     switch(action.type){
         case "SET_VALUE": {
-            return {...state, values: {...state.values, ...action.payload}};
+            return {...state, values: {...state?.values, ...action.payload}};
         }
         case "RESET_FIELDS": {
             return{...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false};

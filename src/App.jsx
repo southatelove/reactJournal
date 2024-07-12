@@ -87,6 +87,10 @@ function App() {
     }
   };
 
+  const onDelete = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
+
   //из-за форматирования date не подойдет
   // const addItem = (item) => {
   //   setItems((prev) => [...prev, item]);
@@ -97,14 +101,18 @@ function App() {
       <div className="app">
         <LeftPanel>
           <Header />
-          <JournalAddButton />
+          <JournalAddButton clearForm={() => setSelectedItem(null)} />
           <JournalList
             items={mapItems(items)}
             setSelectedItem={setSelectedItem}
           />
         </LeftPanel>
         <Body>
-          <JournalForm onSubmit={onSubmit} selectedItem={selectedItem} />
+          <JournalForm
+            onSubmit={onSubmit}
+            selectedItem={selectedItem}
+            onDelete={onDelete}
+          />
         </Body>
       </div>
     </UserContextProvider>
