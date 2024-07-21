@@ -1,3 +1,5 @@
+import styles from "./Header.module.css";
+
 import SelectUser from "../SelectUser/SelectUser";
 import { Logo } from "../Logo/Logo";
 

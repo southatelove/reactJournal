@@ -1,30 +1,38 @@
 import styles from "./JournalForm.module.css";
 import { Button } from "../Button/Button";
-import { useContext, useEffect, useReducer, useRef } from "react";
-import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 import Input from "../Input/Input";
 import TextArea from "../TextArea/TextArea";
-import { UserContext } from "../../context/userContext";
 
-export default function JournalForm({ onSubmit, onDelete, selectedItem }) {
+import { useContext, useEffect, useReducer, useRef } from "react";
+import { INITIAL_STATE, formReducer } from "./JournalForm.state";
+
+import { UserContext } from "../../context/UserContext/userContext";
+import { JournalFormProps } from "./JournalForm.props";
+import { isValidForm } from "../../interfaces/journalFormState.interface";
+
+export default function JournalForm({
+  onSubmit,
+  onDelete,
+  selectedItem,
+}: JournalFormProps) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
-  const titleRef = useRef();
-  const dateRef = useRef();
-  const postRef = useRef();
+  const titleRef = useRef<HTMLInputElement | null>(null);
+  const dateRef = useRef<HTMLInputElement | null>(null);
+  const postRef = useRef<HTMLTextAreaElement | null>(null);
 
   const { userId } = useContext(UserContext);
 
-  const focusError = (isValid) => {
+  const focusError = (isValid: isValidForm) => {
     switch (true) {
-      case !isValid.title:
-        titleRef.current.focus();
+      case isValid.title:
+        titleRef.current?.focus();
         break;
       case !isValid.date:
-        dateRef.current.focus();
+        dateRef.current?.focus();
         break;
       case !isValid.post:
-        postRef.current.focus();
+        postRef.current?.focus();
         break;
     }
   };
@@ -39,7 +47,7 @@ export default function JournalForm({ onSubmit, onDelete, selectedItem }) {
   }, [selectedItem]);
 
   useEffect(() => {
-    let timerId;
+    let timerId: number;
     if (!isValid.date || !isValid.post || !isValid.title) {
       focusError(isValid);
       timerId = setTimeout(() => {
@@ -67,19 +75,19 @@ export default function JournalForm({ onSubmit, onDelete, selectedItem }) {
     });
   }, [userId]);
 
-  const addJournalItem = (e) => {
+  const addJournalItem = (e: React.FormEvent) => {
     e.preventDefault();
     dispatchForm({ type: "SUBMIT" });
   };
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatchForm({
       type: "SET_VALUE",
       payload: { [e.target.name]: e.target.value },
     });
   };
 
-  const deleteJournalItem = (id) => {
+  const deleteJournalItem = (id: number) => {
     onDelete(id);
     dispatchForm({ type: "RESET_FIELDS" });
     dispatchForm({ type: "SET_VALUE", payload: { userId: userId } });
@@ -142,11 +150,11 @@ export default function JournalForm({ onSubmit, onDelete, selectedItem }) {
         ref={postRef}
         id=""
         name="post"
-        cols="30"
-        rows="10"
         value={values.post}
         onChange={onChange}
         isValid={isValid.post}
+        cols={30}
+        rows={10}
       />
       <Button>Сохранить</Button>
     </form>

@@ -1,16 +1,20 @@
-import "./JournalList.css";
+import styles from "./JournalList.module.css";
 import CardButton from "../CardButton/CardButton";
 import JournalItem from "../JournalItem/JournalItem";
 import { useContext } from "react";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext/userContext";
+import { JournalListProps } from "./JournalList.props";
 
-export default function JournalList({ items, setSelectedItem }) {
+export default function JournalList({
+  items,
+  setSelectedItem,
+}: JournalListProps) {
   const { userId } = useContext(UserContext);
 
   if (items.length === 0) {
     return <p>Записей нет, добавьте первую</p>;
   }
-  const sortItems = (a, b) => {
+  const sortItems = (a: any, b: any): number => {
     return a.date < b.date ? 1 : -1;
   };
 

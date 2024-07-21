@@ -5,7 +5,10 @@
   padding: 20px;
   border: none;
   text-align: start;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .card-button:hover {

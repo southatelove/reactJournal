@@ -2,52 +2,25 @@ import "./App.css";
 
 import LeftPanel from "./layouts/LeftPanel/LeftPanel";
 import Body from "./layouts/Body/Body";
+
 import Header from "./components/Header/Header";
 import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalList from "./components/JournalList/JournalList";
 import JournalForm from "./components/JournalForm/JournalForm";
 import { useLocalStorage } from "./hooks/useLocalStorage/use-localstorage.hook";
 
-import { UserContextProvider } from "./context/userContext";
+import { UserContextProvider } from "./context/UserContext/userContext";
 import { useState } from "react";
+import { ItemsI } from "./interfaces/Items.interface";
+import { SelectedItem } from "./interfaces/selectedItem.interface";
 
 function App() {
   //[items, setItems] это [data,saveData] из кастомного хука useLocalStorage
 
   const [items, setItems] = useLocalStorage("data");
-  const [selectedItem, setSelectedItem] = useState({});
+  const [selectedItem, setSelectedItem] = useState<SelectedItem>();
 
-  // useEffect(() => {
-  //   const data = JSON.parse(localStorage.getItem("data"));
-  //   if (data) {
-  //     setItems(
-  //       data.map((item) => ({
-  //         ...item,
-  //         date: new Date(item.date),
-  //       }))
-  //     );
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (items.length) {
-  //     localStorage.setItem("data", JSON.stringify(items));
-  //   }
-  // }, [items]);
-
-  // const onSubmit = (item) => {
-  //   setItems((prev) => [
-  //     ...prev,
-  //     {
-  //       post: item.post,
-  //       title: item.title,
-  //       date: new Date(item.date),
-  //       id: prev.length > 0 ? Math.max(...prev.map((item) => item.id + 1)) : 1,
-  //     },
-  //   ]);
-  // };
-
-  function mapItems(items) {
+  function mapItems(items: ItemsI[]) {
     if (items) {
       return items.map((i) => ({
         ...i,
@@ -58,7 +31,7 @@ function App() {
     }
   }
 
-  const onSubmit = (item) => {
+  const onSubmit = (item: ItemsI) => {
     if (!item.id) {
       setItems([
         ...mapItems(items),
@@ -69,7 +42,7 @@ function App() {
           date: new Date(item.date),
           id:
             items?.length > 0
-              ? Math.max(...items.map((item) => item.id)) + 1
+              ? Math.max(...items.map((item: ItemsI) => item.id)) + 1
               : 1,
         },
       ]);
@@ -87,8 +60,8 @@ function App() {
     }
   };
 
-  const onDelete = (id) => {
-    setItems(items.filter((item) => item.id !== id));
+  const onDelete = (id: number) => {
+    setItems(items.filter((item: ItemsI) => item.id !== id));
   };
 
   //из-за форматирования date не подойдет
@@ -101,7 +74,7 @@ function App() {
       <div className="app">
         <LeftPanel>
           <Header />
-          <JournalAddButton clearForm={() => setSelectedItem(null)} />
+          <JournalAddButton clearForm={() => setSelectedItem(null!)} />
           <JournalList
             items={mapItems(items)}
             setSelectedItem={setSelectedItem}
