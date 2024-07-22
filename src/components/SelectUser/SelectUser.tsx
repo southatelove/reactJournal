@@ -19,8 +19,8 @@ export const SelectUser = () => {
         value={userId}
         onChange={changeUser}
       >
-        <option value="1">Oleg</option>
-        <option value="2">Petr</option>
+        <option value="1">Пользователь 1</option>
+        <option value="2">Пользователь 2</option>
       </select>
     </>
   );
