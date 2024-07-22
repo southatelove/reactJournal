@@ -354,7 +354,6 @@ img {
 
 html,
 body,
-span,
 applet,
 object,
 iframe,
@@ -436,6 +435,9 @@ video {
   font: inherit;
   vertical-align: baseline;
   color: black;
+}
+span {
+  color: white;
 }
 
 article,

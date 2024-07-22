@@ -7,3 +7,9 @@ option {
   border: 1px solid #323232;
   color: white;
 }
+
+@media (max-width: 420px) {
+  .select {
+    max-width: 300px;
+  }
+}

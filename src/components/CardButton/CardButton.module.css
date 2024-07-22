@@ -21,3 +21,9 @@
     gap: 5px;
   }
 }
+
+@media (max-width: 420px) {
+  .card-button {
+    max-width: 300px;
+  }
+}

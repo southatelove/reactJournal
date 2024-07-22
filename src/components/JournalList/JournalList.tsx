@@ -12,7 +12,7 @@ export const JournalList = ({ items, setSelectedItem }: JournalListProps) => {
   const { userId } = useContext(UserContext);
 
   if (items.length === 0) {
-    return <p>Записей нет, добавьте первую</p>;
+    return <p style={{ color: "white" }}>Записей нет, добавьте первую</p>;
   }
   const sortItems = (a: any, b: any): number => {
     return a.date < b.date ? 1 : -1;

@@ -25,9 +25,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  /* overflow: hidden;
+  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis; */
+  text-overflow: ellipsis;
 }
 
 .journal-item__body {
