@@ -5,7 +5,7 @@
 
 ## Стек:
 
-- **Javacript**
+- **Typescript**
 - **React**
 - **React-Hooks (useState, useEffect, useContext, memo, useMemo, useCallback, useReducer, useLocalStorage)**
 - **ModuleCSS && CSS && ClassNames**
@@ -18,8 +18,11 @@
 ## запланированные доработки
 
 Готово
+
 - Добавление Typescript
 
 Не готово
+
+- ~~Добавление Typescript~~
 - Добавление адаптивной верстки
-- Рефакторинг стилей и удаление ненужного
+- ~~Рефакторинг стилей и удаление ненужного~~

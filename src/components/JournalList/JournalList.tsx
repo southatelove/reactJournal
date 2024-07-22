@@ -1,14 +1,14 @@
 import styles from "./JournalList.module.css";
-import CardButton from "../CardButton/CardButton";
-import JournalItem from "../JournalItem/JournalItem";
+
+import { CardButton } from "@/components/CardButton";
+import { JournalItem } from "@/components/JournalItem";
+
 import { useContext } from "react";
-import { UserContext } from "../../context/UserContext/userContext";
+import { UserContext } from "@/context/index";
+
 import { JournalListProps } from "./JournalList.props";
 
-export default function JournalList({
-  items,
-  setSelectedItem,
-}: JournalListProps) {
+export const JournalList = ({ items, setSelectedItem }: JournalListProps) => {
   const { userId } = useContext(UserContext);
 
   if (items.length === 0) {
@@ -30,4 +30,4 @@ export default function JournalList({
         ))}
     </>
   );
-}
+};

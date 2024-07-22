@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ItemsI } from "../../interfaces/Items.interface";
+import { ItemsI } from "@/interfaces/index";
 
 export function useLocalStorage(key: string) {
   const [data, setData] = useState<any>();

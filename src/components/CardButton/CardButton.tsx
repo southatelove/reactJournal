@@ -1,11 +1,11 @@
 import styles from "./CardButton.module.css";
 import { CardButtonProps } from "./CardButton.props";
 
-export default function CardButton({
+export const CardButton = ({
   children,
   className,
   ...props
-}: CardButtonProps) {
+}: CardButtonProps) => {
   return (
     <>
       <button {...props} className={styles["card-button"]}>
@@ -13,4 +13,4 @@ export default function CardButton({
       </button>
     </>
   );
-}
+};

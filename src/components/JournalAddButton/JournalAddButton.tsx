@@ -1,7 +1,8 @@
-import CardButton from "../CardButton/CardButton";
+import { CardButton } from "@/components/CardButton";
 import styles from "./JournalAddButton.module.css";
+import { JournalAddButtonProps } from "./JournalAddButton.props";
 
-export default function JournalAddButton({ clearForm }) {
+export const JournalAddButton = ({ clearForm }: JournalAddButtonProps) => {
   return (
     <CardButton
       className={styles["journal-add"]}
@@ -12,4 +13,4 @@ export default function JournalAddButton({ clearForm }) {
       Новое воспоминание
     </CardButton>
   );
-}
+};

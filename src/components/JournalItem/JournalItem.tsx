@@ -1,11 +1,8 @@
-import { JournalList } from "../../interfaces/journalList.interface";
 import styles from "./JournalItem.module.css";
 
-export default function JournalItem({
-  title,
-  post,
-  date,
-}: Omit<JournalList, "id" | "userId" | "tag">) {
+import { JournalItemProps } from "./JournalItem.props";
+
+export const JournalItem = ({ title, post, date }: JournalItemProps) => {
   const formatedDate = new Intl.DateTimeFormat("ru-RU").format(
     date as unknown as Date
   );
@@ -19,4 +16,4 @@ export default function JournalItem({
       </h2>
     </>
   );
-}
+};

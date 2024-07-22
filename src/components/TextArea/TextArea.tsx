@@ -3,7 +3,7 @@ import styles from "./TextArea.module.css";
 import cn from "classnames";
 import { TextAreaProps } from "./TextArea.props";
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   function TextArea(
     { className, isValid = true, value, onChange, ...props },
     ref
@@ -23,5 +23,3 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     );
   }
 );
-
-export default TextArea;

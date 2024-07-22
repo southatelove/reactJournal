@@ -1,5 +1,5 @@
-import { ItemsI } from "../../interfaces/Items.interface";
-import { SelectedItem } from "../../interfaces/selectedItem.interface";
+import { ItemsI } from "@/interfaces/index";
+import { SelectedItem } from "@/interfaces/index";
 
 export interface JournalFormProps {
   onSubmit: (item: ItemsI) => void;

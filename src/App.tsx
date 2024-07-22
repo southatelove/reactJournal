@@ -1,18 +1,20 @@
 import "./App.css";
 
-import LeftPanel from "./layouts/LeftPanel/LeftPanel";
-import Body from "./layouts/Body/Body";
+import { LeftPanel } from "./layouts/LeftPanel";
+import { Body } from "./layouts/Body";
+import { Header } from "./components/Header";
 
-import Header from "./components/Header/Header";
-import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
-import JournalList from "./components/JournalList/JournalList";
-import JournalForm from "./components/JournalForm/JournalForm";
+import { JournalAddButton } from "@/components/JournalAddButton";
+import { JournalList } from "@/components/JournalList";
+import { JournalForm } from "@/components/JournalForm";
+
 import { useLocalStorage } from "./hooks/useLocalStorage/use-localstorage.hook";
 
 import { UserContextProvider } from "./context/UserContext/userContext";
 import { useState } from "react";
-import { ItemsI } from "./interfaces/Items.interface";
-import { SelectedItem } from "./interfaces/selectedItem.interface";
+
+import { ItemsI } from "@/interfaces/index";
+import { SelectedItem } from "@/interfaces/index";
 
 function App() {
   //[items, setItems] это [data,saveData] из кастомного хука useLocalStorage

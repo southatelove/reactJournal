@@ -1,20 +1,21 @@
 import styles from "./JournalForm.module.css";
-import { Button } from "../Button/Button";
-import Input from "../Input/Input";
-import TextArea from "../TextArea/TextArea";
+
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { TextArea } from "@/components/TextArea";
 
 import { useContext, useEffect, useReducer, useRef } from "react";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 
-import { UserContext } from "../../context/UserContext/userContext";
+import { UserContext } from "@/context/index";
 import { JournalFormProps } from "./JournalForm.props";
-import { isValidForm } from "../../interfaces/journalFormState.interface";
+import { isValidForm } from "@/interfaces/index";
 
-export default function JournalForm({
+export const JournalForm = ({
   onSubmit,
   onDelete,
   selectedItem,
-}: JournalFormProps) {
+}: JournalFormProps) => {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
   const titleRef = useRef<HTMLInputElement | null>(null);
@@ -159,4 +160,4 @@ export default function JournalForm({
       <Button>Сохранить</Button>
     </form>
   );
-}
+};

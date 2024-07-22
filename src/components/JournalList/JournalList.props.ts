@@ -1,5 +1,5 @@
-import { JournalList } from "../../interfaces/journalList.interface";
-import { SelectedItem } from "../../interfaces/selectedItem.interface";
+import { JournalList } from "@/interfaces/index";
+import { SelectedItem } from "@/interfaces/index";
 
 export interface JournalListProps {
   items: JournalList[];

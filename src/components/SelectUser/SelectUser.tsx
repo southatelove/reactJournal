@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext/userContext";
 import styles from "./SelectUser.module.css";
 
-export default function SelectUser() {
+import { useContext } from "react";
+import { UserContext } from "@/context/index";
+
+export const SelectUser = () => {
   const { userId, setUserId } = useContext(UserContext);
 
   const changeUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -23,4 +24,4 @@ export default function SelectUser() {
       </select>
     </>
   );
-}
+};
