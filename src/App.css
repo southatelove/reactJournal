@@ -1,4 +1,20 @@
 .app {
+  padding: 20px 40px 0px 40px;
   display: flex;
-  padding: 30px;
+}
+
+@media (max-width: 1199px) {
+  .app {
+    width: 960px;
+  }
+}
+@media (max-width: 991px) {
+  .app {
+    width: 720px;
+  }
+}
+@media (max-width: 767px) {
+  .app {
+    width: 540px;
+  }
 }
