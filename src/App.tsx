@@ -73,7 +73,7 @@ function App() {
 
   return (
     <UserContextProvider>
-      <div className="app">
+      <div className="wrapper">
         <LeftPanel>
           <Header />
           <JournalAddButton clearForm={() => setSelectedItem(null!)} />

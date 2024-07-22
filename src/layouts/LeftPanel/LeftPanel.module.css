@@ -1,6 +1,12 @@
 .left-panel {
-  max-width: 400px;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+@media (max-width: 1199px) {
+  .left-panel {
+    min-width: 350px;
+  }
 }

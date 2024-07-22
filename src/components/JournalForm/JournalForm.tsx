@@ -26,7 +26,7 @@ export const JournalForm = ({
 
   const focusError = (isValid: isValidForm) => {
     switch (true) {
-      case isValid.title:
+      case !isValid.title:
         titleRef.current?.focus();
         break;
       case !isValid.date:

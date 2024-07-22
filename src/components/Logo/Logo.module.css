@@ -1,4 +1,11 @@
 .logo {
   font-size: 28px;
   margin: 20px 0px 0px 0px;
+  color: white;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    display: none;
+  }
 }

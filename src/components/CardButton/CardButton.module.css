@@ -6,11 +6,18 @@
   border: none;
   text-align: start;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 
 .card-button:hover {
   background: #646cff;
+}
+
+@media (max-width: 1199px) {
+  .card-button {
+    gap: 5px;
+  }
 }

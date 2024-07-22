@@ -1,20 +1,33 @@
-.app {
+.wrapper {
   padding: 20px 40px 0px 40px;
   display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 @media (max-width: 1199px) {
-  .app {
+  .wrapper {
     width: 960px;
   }
 }
 @media (max-width: 991px) {
-  .app {
+  .wrapper {
     width: 720px;
   }
 }
 @media (max-width: 767px) {
-  .app {
+  .wrapper {
     width: 540px;
+    flex-direction: column;
+  }
+}
+@media (max-width: 575px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+@media (max-width: 420px) {
+  .wrapper {
+    min-width: 300px;
   }
 }
