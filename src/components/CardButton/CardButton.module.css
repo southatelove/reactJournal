@@ -10,6 +10,7 @@
   align-items: center;
   gap: 20px;
   position: relative;
+  max-width: 400px;
 }
 
 .card-button:hover {
